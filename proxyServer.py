@@ -3,10 +3,10 @@ import json
 import socket
 import requests
 from requests.structures import CaseInsensitiveDict
+from sanitizeData import extractTagFromHTML
 
 LOCAL_HOST = "127.0.0.1"
 LOCAL_PORT = 8000
-
 
 def handle_request(client_sock):
     # Receive data from client
@@ -19,11 +19,12 @@ def handle_request(client_sock):
         response = requests.get(urlParameter[0])
         if response.status_code in [200, 304]:
             response_headers = bytes(str(response.headers), "utf-8")
+            response_strContent = extractTagFromHTML(response.text)
             client_sock.send(
-                b"HTTP/1.1 200 OK\r\nContent-Type: text/plain; charset=utf-8\r\nAccess-Control-Allow-Origin: *\r\nContent-Length: "
-                + bytes(str(len(response.content)), "utf-8")
+                b"HTTP/1.1 200 OK\r\nContent-Type: text/html; charset=utf-8\r\nAccess-Control-Allow-Origin: *\r\nContent-Length: "
+                + bytes(str(len(response_strContent)), "utf-8")
                 + b"\r\n\r\n"
-                + response.content
+                + response_strContent.encode("utf-8")
             )
         else:
             client_sock.send(
