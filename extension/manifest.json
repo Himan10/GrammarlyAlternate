@@ -1,0 +1,15 @@
+{
+  "name": "GrammarlyAlternate",
+  "version": "1.0",
+  "description": "This extension injects HTML, CSS & JS code into the web page source",
+  "manifest_version": 2,
+  "browser_action": {
+    "default_icon": {
+      "128": "extensionIcon.png"
+    },
+    "default_area": "navbar",
+    "default_title": "GrammarlyAlt. Extension",
+    "default_popup": "popup.html"
+  },
+  "permissions": ["activeTab"]
+}
