@@ -9,7 +9,11 @@
     },
     "default_area": "navbar",
     "default_title": "GrammarlyAlt. Extension",
-    "default_popup": "popup.html"
+    "default_popup": "extensionDescription.html"
   },
+  "content_scripts": [{
+	  "matches": ["http://*/*", "https://*/*"],
+	  "js": ["injectJSsnippet.js"]
+  }],
   "permissions": ["activeTab"]
 }
