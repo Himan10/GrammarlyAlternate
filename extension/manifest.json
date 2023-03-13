@@ -15,5 +15,5 @@
 	  "matches": ["http://*/*", "https://*/*"],
 	  "js": ["injectJSsnippet.js"]
   }],
-  "permissions": ["activeTab"]
+  "permissions": ["storage", "tabs", "activeTab"]
 }
