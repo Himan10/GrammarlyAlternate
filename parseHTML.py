@@ -18,8 +18,8 @@ def HTMLTemplate(shortDesc, longDesc):
 <title>Word Description</title>
 </head>
 <body>
-<b><i>Short Description :</b>{{ shortDesc }}</i><br>
-<b><i>Long Description :</b>{{ longDesc }}</i><br>
+<p id="short"><b><i>Short Description :</b>{{ shortDesc }}</i><br></p>
+<p id="long"><b><i>Long Description :</b>{{ longDesc }}</i><br></p>
 </body>
 </html>
 """)
