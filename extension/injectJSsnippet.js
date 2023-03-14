@@ -10,10 +10,15 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 			document.body.append(scriptSrc)
 		} else if (codeInjectStatus == "false") {
 			const scriptTag = document.getElementById("script#01")
-			document.body.removeChild(scriptTag)
+			const dialogBox = document.getElementById("dialog#01")
+			if (scriptTag) {
+				document.body.removeChild(scriptTag)
+			}
+			if (dialogBox) {
+				document.body.removeChild(dialogBox)
+			}
 		}
 	} catch (e) {
 		console.error("Something Went Wrong", e.message);
 	}
 });
-
