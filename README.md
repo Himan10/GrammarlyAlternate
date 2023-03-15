@@ -27,6 +27,8 @@ Okay! so I guess that's all about **Grammarly Extension** (left) & **GrammarlyAl
 I'll add more to this section in the upcoming README changes ~running out of time & battery~.
 
 # Installation
+**NOTE**: *This project works only in localhost as of now, don't try it on any other web pages due to partial development and testing.*  
+
 * ***DOWNLOAD this repository*** - Steps, you should know how to use git clone.    
 
 * ***INSTALL the extension*** - I am running brave browser, so here, the steps are quite simple. Go to `chrome://extensions` -> Click the "Load Unpacked" option -> Select the GrammarlyAlternate directory, go to sub directory "extension/", and select the `manifest.json` file.    
@@ -36,6 +38,8 @@ I'll add more to this section in the upcoming README changes ~running out of tim
 * Once the above steps are completed, and you see the GrammarlyAlternate extension loaded on the navigation bar, you're almost done.     
 
 * The button on web extension supports toggle functionality. You can inject the code by clicking on "inject" and extract the piece of injected code by clicking on "Extract".
+
+* Go to the localhost, select the GrammarlyAlternate dir and open the file `useMeForTest.html`. 
 
 * Now click on the extension and inject the javascript code, select any word and you'll get the output at the right side of your web page.
 
