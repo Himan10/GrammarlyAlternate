@@ -50,7 +50,7 @@ function createElement(data) {
 	// data should be in the form of {key: value}; dictionary
 	
 	const head = document.getElementsByTagName("head")[0]
-	const cssFileLocation = "http://localhost/GrammarlyAlternate/extension/popUpStyle.css"
+	const cssFileLocation = "./extension/popUpStyle.css"
 	var linkSrc = head.querySelector("link") 
 	if (!linkSrc) {
 		linkSrc = createLinkTag(linkSrc, cssFileLocation)
