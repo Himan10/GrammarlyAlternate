@@ -3,7 +3,6 @@ import json
 import socket
 import requests
 import urllib.parse
-from requests.structures import CaseInsensitiveDict
 from parseHTML import extractTagFromHTML
 
 LOCAL_HOST = "127.0.0.1"
