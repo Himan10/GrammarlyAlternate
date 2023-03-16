@@ -33,6 +33,10 @@ I'll add more to this section in the upcoming README changes ~running out of tim
 
 * ***INSTALL the extension*** - I am running brave browser, so here, the steps are quite simple. Go to `chrome://extensions` -> Click the "Load Unpacked" option -> Select the GrammarlyAlternate directory, go to sub directory "extension/", and select the `manifest.json` file.    
 
+* ***RUN a HTTP server*** - Run a HTTP server on your local machine, and host this directory contents.    
+To do that, run this commend -> `python -m http.server <portNumber> --directory <path/to/GrammarlyAlternate>`    
+Remember, do not use the same port number on which the proxyServer.py will be running. 
+
 * ***RUN the python script*** - Run the proxyServer.py using python. You can also run the script in the background as well.
 
 * Once the above steps are completed, and you see the GrammarlyAlternate extension loaded on the navigation bar, you're almost done.     
