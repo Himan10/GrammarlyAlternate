@@ -1,5 +1,5 @@
 const scriptSrc = document.createElement("script")
-scriptSrc.setAttribute("src", "/GrammarlyAlternate/extension/eventListener.js")
+scriptSrc.setAttribute("src", "./extension/eventListener.js")
 scriptSrc.setAttribute("id", "script#01")
 // onMessage.addListener expects a callback function as an argument's value.
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
