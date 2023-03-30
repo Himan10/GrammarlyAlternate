@@ -1,12 +1,14 @@
 import re
+import ssl
 import json
 import socket
 import requests
 import urllib.parse
 from parseHTML import extractTagFromHTML
 
-LOCAL_HOST = "127.0.0.1"
-LOCAL_PORT = 8000
+HOST = "127.0.0.1"
+PORT = 8000
+
 
 def urlEncoding(value):
     if len(value) > 1 and not value.isspace():
@@ -59,21 +61,31 @@ def handle_request(client_sock):
 
 
 def main():
+    notInLocal = True if HOST not in ["127.0.0.1", "localhost"] else False
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server_sock:
-
         # set the SO_REUSEADDR option; This helps in reducing OSError: Already in use
         server_sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
-        server_sock.bind((LOCAL_HOST, LOCAL_PORT))
-        server_sock.listen()
+        server_sock.bind((HOST, PORT))
 
-        print(f"Proxy server listening on {LOCAL_HOST}:{LOCAL_PORT}")
+        # Create ssl context (only if the code is hosted on AWS)
+        if notInLocal:
+            ssl_context = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)
+            ssl_context.load_cert_chain(certfile="./server.crt", keyfile="./server.key")
+
+        server_sock.listen()
+        print(f"Proxy server listening on {HOST}:{PORT}")
 
         while True:
             client_sock, client_addr = server_sock.accept()
-
             print("Accepted request from : ", client_addr)
-            handle_request(client_sock)
+
+            if notInLocal:
+                ssl_socket = ssl_context.wrap_socket(client_sock, server_side=True)
+                handle_request(ssl_socket)
+            else:
+                handle_request(client_sock)
+
             client_sock.close()
 
         server_sock.close()
