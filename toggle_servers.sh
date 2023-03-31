@@ -4,9 +4,9 @@ function stop_servers() {
 	# Find if anything's running on port 8001 (http server)
 	# $1 represents the port number
 	# tlnp flag = tcp | listening | not resolve port names | programs
-	serverService=$(netstat -tlnp | grep $1)
+	serverService=$(ss -tlnp | grep $1)
 	if [ -n "$serverService" ]; then
-		pidOfServer=$(echo $serverService | grep -Po "\d+(?=\/\w+$)")
+		pidOfServer=$(echo $serverService | grep -Po "(?<=pid=)\d+")
 		if [ -n "$pidOfServer" ]; then
 			kill -9 $pidOfServer
 			status=$?
@@ -35,12 +35,12 @@ function start_servers() {
 	# Start the http server on port 8001
 	PYTHONUNBUFFERED=x python -m http.server 8001 -d ./ >> logs/python-http.log 2>&1 &
 	httpServerPid=$! # get the PID of the recent ran command i.e., http server
-	echo "HTTP Server running.... [$httpServerPid]"
+	echo "HTTP Server [$httpServerPid] running on 8001"
 
 	# Start the python proxy server on port 8000
 	PYTHONUNBUFFERED=x python proxyServer.py 8000 >> logs/python-proxyServer.log 2>&1 &
 	proxyServerPid=$! # get the PID of the recent run command i.e., proxyServer.py
-	echo "Proxy Server running....[$proxyServerPid]"
+	echo "Proxy Server [$proxyServerPid] running on 8000"
 }
 
 function show_prompt() {
