@@ -29,7 +29,7 @@ I'll add more to this section in the upcoming README changes ~running out of tim
 # Installation
 **NOTE**: *This project works only in localhost as of now, don't try it on any other web pages due to partial development and testing.*  
 
-* `git clone https://github.com/Himan10/GrammarlyAlternate.git`
+* `git clone https://github.com/Himan10/GrammarlyAlternate.git && cd GrammarlyAlternate/`
 
 * ***INSTALL the extension*** - I am running brave browser, so here, the steps are quite simple. Go to `chrome://extensions` -> Click the "Load Unpacked" option -> Select the GrammarlyAlternate directory, go to sub directory "extension/", and select the `manifest.json` file.    
 
