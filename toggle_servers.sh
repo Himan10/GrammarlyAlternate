@@ -24,7 +24,7 @@ function stop_servers() {
 
 function start_servers() {
 	# Check if python is present or not
-	if python --version >/dev/null 2>&1; then echo ; else echo -e "Python is not installed\nSet alias if it's present (for ex. alias python=python3.10)"; exit 1; fi
+	if python --version >/dev/null 2>&1; then echo ; else echo -e "Python is not installed\nSet symbolic link for that version (for ex. ln -s /bin/python3.10 /bin/python)"; exit 1; fi
 
 	# Check if the logs directory exist or not
 	if [ -e ./logs/ ]; then
