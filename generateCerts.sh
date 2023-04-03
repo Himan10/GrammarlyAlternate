@@ -47,7 +47,7 @@ function getFileFromHost() {
 
 function generate_certs() {
 	# Create the directory and send client/server cert req. to there
-	mkdir "certs/"
+	if [ ! -e "certs/" ]; then mkdir "certs/"; fi
 
 	# Generate the keys
 	openssl genrsa -out "$1.key" 2048
@@ -64,29 +64,31 @@ function generate_certs() {
 	checkExitStatus "$?" "Certificate Generated Successfully"
 	cp "$1.crt" "certs/"
 
-	# server.crt file location
-	read -p "server.crt on present (local / cloud ) : " "user_choice"
-	user_choice=$(echo "$user_choice" | tr "[:upper:]" "[:lower:]")
-	fileLocation="./certs/server.crt"
+	if [ "$1" == "client" ]; then
+		# server.crt file location
+		read -p "server.crt on present (local / cloud ) : " "user_choice"
+		user_choice=$(echo "$user_choice" | tr "[:upper:]" "[:lower:]")
+		fileLocation="./certs/server.crt"
 
-	if [ $user_choice == "cloud" ]; then
-		getFileFromHost
-	else
-		read -p "Enter server.crt location : " fileLocation
-	fi
+		if [ $user_choice == "cloud" ]; then
+			getFileFromHost
+		else
+			read -p "Enter server.crt location : " fileLocation
+		fi
 
-	# copy the server.crt to the /etc/ssl/certs and update ca-certificates
-	echo -e "Copying server.crt to /etc/ssl/certs\n"
-	sudo cp "./certs/server.crt" "/etc/ssl/certs"
+		# copy the server.crt to the /etc/ssl/certs and update ca-certificates
+		echo -e "Copying server.crt to /etc/ssl/certs\n"
+		sudo cp "./certs/server.crt" "/etc/ssl/certs"
 
-	# update the ca-certificates
-	sudo update-ca-certificates >> /dev/null 2>&1
-	if [ $? -eq 0 ]; then
-		echo "COMPLETED [ca-certificates]"
-	else
-		sudo update-ca-trust >> /dev/null 2>&1
-		echo "COMPLETED [ca-trust]"
-		exit
+		# update the ca-certificates
+		sudo update-ca-certificates >> /dev/null 2>&1
+		if [ $? -eq 0 ]; then
+			echo "COMPLETED [ca-certificates]"
+		else
+			sudo update-ca-trust >> /dev/null 2>&1
+			echo "COMPLETED [ca-trust]"
+			exit
+		fi
 	fi
 }
 
