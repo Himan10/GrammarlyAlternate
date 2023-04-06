@@ -52,17 +52,17 @@ function generate_certs() {
 	# Generate the keys
 	openssl genrsa -out "$1.key" 2048
 	checkExitStatus "$?" "Key Generated Successfully"
-	cp "$1.key" "certs/"
+	mv "$1.key" "certs/"
 
 	# Generate the csr (certificate signing registry)
-	openssl req -new -key "$1.key" -out $1.csr;
+	openssl req -new -key "certs/$1.key" -out $1.csr;
 	checkExitStatus "$?" "CSR Generated Successfully"
-	cp "$1.csr" "certs/"
+	mv "$1.csr" "certs/"
 
 	# Generate the crt (certificate)
-	openssl x509 -req -in "$1.csr" -signkey "$1.key" -out "$1.crt";
+	openssl x509 -req -in "certs/$1.csr" -signkey "certs/$1.key" -out "$1.crt";
 	checkExitStatus "$?" "Certificate Generated Successfully"
-	cp "$1.crt" "certs/"
+	mv "$1.crt" "certs/"
 
 	if [ "$1" == "client" ]; then
 		# server.crt file location
@@ -78,7 +78,7 @@ function generate_certs() {
 
 		# copy the server.crt to the /etc/ssl/certs and update ca-certificates
 		echo -e "Copying server.crt to /etc/ssl/certs\n"
-		sudo cp "./certs/server.crt" "/etc/ssl/certs"
+		sudo mv "./certs/server.crt" "/etc/ssl/certs"
 
 		# update the ca-certificates
 		sudo update-ca-certificates >> /dev/null 2>&1
